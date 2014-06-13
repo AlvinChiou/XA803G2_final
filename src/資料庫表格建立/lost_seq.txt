@@ -1,0 +1,18 @@
+CREATE SEQUENCE lost_seq
+INCREMENT BY 1
+START WITH 5001
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+查詢目前表格中有使用中sequence
+ SELECT * FROM USER_SEQUENCES;
+
+刪除sequence:
+ DROP SEQUENCE lost_seq;
+ 
+●取用一組新的值:
+ SELECT lost_seq.NEXTVAL FROM DUAL;
+
+得知目前使用到幾號 :
+ SELECT lost_seq.CURRVAL FROM DUAL;

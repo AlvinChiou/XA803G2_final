@@ -1,0 +1,204 @@
+建立表格: MEMBER, LOST, NEWS, POWER, EMPLOYEE
+--------------------------------------------------------------------------------------------------------
+alter session set deferred_segment_creation=false;
+
+DROP TABLE LOST;
+DROP TABLE NEWS;
+DROP TABLE POWER;
+DROP TABLE FUNCTION_item;
+DROP TABLE EMPLOYEE;
+DROP TABLE MEMBER;
+
+DROP SEQUENCE func_seq;
+DROP SEQUENCE emp_seq;
+DROP SEQUENCE lost_seq;
+DROP SEQUENCE mem_seq;
+DROP SEQUENCE news_seq;
+
+CREATE TABLE MEMBER(
+ memNo             VARCHAR2(10) NOT NULL,
+ memId             VARCHAR2(15) NOT NULL UNIQUE,
+ memPassword       VARCHAR2(15) NOT NULL,
+ memName           VARCHAR2(10) NOT NULL,
+ memIDNO           VARCHAR2(10) NOT NULL UNIQUE,
+ memEmail          VARCHAR2(30) NOT NULL,
+ memBirth          DATE,
+ memAdd            VARCHAR2(100),
+ memSex            NUMBER(1),
+ memTEL            VARCHAR2(15) NOT NULL,
+ memState          NUMBER(1),
+ CONSTRAINT MEMBER_PRIMARY_KEY PRIMARY KEY(memNo));
+ 
+ CREATE SEQUENCE mem_seq
+ INCREMENT BY 1
+ START WITH 7001
+ NOMAXVALUE
+ NOCYCLE
+ NOCACHE;
+ 
+ INSERT INTO MEMBER VALUES (mem_seq.NEXTVAL, 'qaz123', '123456', 'KING', 'H128952729', 'king0000@gmail.com', TO_DATE('1981-11-17','YYYY-MM-DD'), '中壢市中大路300-1號', '1', '0919053489', '1');
+ INSERT INTO MEMBER VALUES (mem_seq.NEXTVAL, 'wsx456', '654321', 'ELLEN', 'H233312337', 'ellen1012@gmail.com', TO_DATE('1983-05-10','YYYY-MM-DD'), '中壢市中大路300-1號', '0', '0912345678', '1');
+ INSERT INTO MEMBER VALUES (mem_seq.NEXTVAL, 'edc789', '147258', 'MARK', 'H127357480', 'mark3625@gmail.com', TO_DATE('1987-04-20','YYYY-MM-DD'), '中壢市中大路300-1號', '1', '0928554214', '1');
+ INSERT INTO MEMBER VALUES (mem_seq.NEXTVAL, 'rfv147', '258369', 'HOWARD', 'H129519273', 'howard0545@gmail.com', TO_DATE('1986-04-20','YYYY-MM-DD'), '中壢市中大路300-1號', '1', '0933579812', '1');
+ INSERT INTO MEMBER VALUES (mem_seq.NEXTVAL, 'tgb258', '369789', 'WOODS', 'H227332001', 'wood1415@gmail.com', TO_DATE('1980-07-02','YYYY-MM-DD'), '中壢市中大路300-1號', '0', '0910457812', '1');
+ INSERT INTO MEMBER VALUES (mem_seq.NEXTVAL, 'yhn369', '147456', 'LIN', 'H123456789', 'lina8979@gmail.com', TO_DATE('1982-02-23','YYYY-MM-DD'), '中壢市中大路300-1號', '1', '0986574923', '1');
+ INSERT INTO MEMBER VALUES (mem_seq.NEXTVAL, 'qwe543', 'aaa0012', 'HOLLYWOOD', 'H123290608', 'hollywood@gmail.com', TO_DATE('1984-09-28','YYYY-MM-DD'), '中壢市中大路300-1號', '1', '0920541198', '1');
+ INSERT INTO MEMBER VALUES (mem_seq.NEXTVAL, 'tiger', 'rabbit', 'PETER', 'H123342429', 'peter741@gmail.com', TO_DATE('1987-10-30','YYYY-MM-DD'), '中壢市中大路300-1號', '1', '0982026388', '1');
+ INSERT INTO MEMBER VALUES (mem_seq.NEXTVAL, 'ching', 'chenching', 'chenching', 'R237668554', 'chingching@gmail.com', TO_DATE('1996-04-25','YYYY-MM-DD'), '中壢市中大路300-1號', '0', '0953520510', '1');
+ INSERT INTO MEMBER VALUES (mem_seq.NEXTVAL, 'yoyolu', 'luyoyo', 'yoyoyoyo', 'P232688798', 'luyoyo520@gmail.com', TO_DATE('1974-02-28','YYYY-MM-DD'), '中壢市中大路300-1號', '0', '0917482519', '0');
+
+
+ 
+ CREATE TABLE LOST(
+ lostNo             VARCHAR2(10) NOT NULL,
+ lostTitle          VARCHAR2(200) NOT NULL,
+ lostPic            BLOB,
+ lostContent        VARCHAR2(1000) NOT NULL,
+ lostTime           DATE,
+ lostState          NUMBER(1) NOT NULL,
+ memNo              VARCHAR2(10) NOT NULL,
+ CONSTRAINT LOST_PRIMARY_KEY PRIMARY KEY(lostNo),
+ CONSTRAINT LOST_mem_No_FK FOREIGN KEY (memNo) REFERENCES MEMBER (memNo));
+ 
+ CREATE SEQUENCE lost_seq
+ INCREMENT BY 1
+ START WITH 5001
+ NOMAXVALUE
+ NOCYCLE
+ NOCACHE;
+ 
+ INSERT INTO LOST VALUES (lost_seq.NEXTVAL, '【失蹤】【桃園縣】中山東路＜好樂迪外面＞白色貴賓：公', null, '3月20日早上失蹤,白色貴賓公：約8歲：＜酷弟＞, 失蹤地點：桃園市中山東路上＜好樂迪ktv外面＞ 請大家幫幫忙！公德無量！謝小姐：0926731252', TO_DATE('2014-04-17','YYYY-MM-DD'), '0', '7001');
+ INSERT INTO LOST VALUES (lost_seq.NEXTVAL, '【台北縣】柴犬 板橋大觀路二段遺失柴犬', null, '請各位幫幫忙遺失時間約為20:00~22:00公的 沒有植入晶片 未結紮 我真的很擔心他....拜託各位.....', TO_DATE('2014-04-20','YYYY-MM-DD'), '0', '7002');
+ INSERT INTO LOST VALUES (lost_seq.NEXTVAL, '【台北縣】白貴賓 {新北市中永和}白貴賓走失!!', null, '3/30於景平路租屋處遺失,因牠是掙脫項圈跑出去的,所以身上沒有項圈,但當時剛美容完,身體很乾淨,牠後腳關節不太好,走路姿勢會有點怪怪的,如有相關消息 0912-500909 吳先生,拾獲者我願意提供感謝金', TO_DATE('2014-04-20','YYYY-MM-DD'), '0', '7003');
+ INSERT INTO LOST VALUES (lost_seq.NEXTVAL, '【彰化縣】請協尋~黑長毛臘腸~Duly~', null, '走丟時身上穿戴黃色防跳蚤項圈<乖巧 怕生 不會咬人> 聯絡人:洪先生 0922-899931', TO_DATE('2014-04-23','YYYY-MM-DD'), '0', '7003');
+ INSERT INTO LOST VALUES (lost_seq.NEXTVAL, '【屏東縣】請幫忙協尋"灰鸚鵡"', null, '小弟於恆春遺失一隻灰鸚鵡"岡果灰鸚"!!腳上有"藍色"腳環 編號"T*1** 另有8字鐵環!如有拾取歸還小弟另有獎勵答謝! 感謝各位!! 0911884774', TO_DATE('2014-04-23','YYYY-MM-DD'), '0', '7004');
+ INSERT INTO LOST VALUES (lost_seq.NEXTVAL, '【全台灣】尋找愛貓', null, '尋找愛貓 年紀大約1~3歲,是一個愛撒嬌的小男生,前陣子借 別人，她跟我們說牠不見了，麻煩有看到的人幫忙一下,謝謝,Line:love560335', TO_DATE('2014-04-23','YYYY-MM-DD'), '0', '7005');
+ INSERT INTO LOST VALUES (lost_seq.NEXTVAL, '【宜蘭縣】狗狗走失了', null, '尋狗啟事 請住在宜蘭的鄉親朋友協助尋找,這是8歲多的老狗了!!在家中都沒繫狗鍊,4/15日一開門就衝出去,馬上就跑不見,想請有看到的朋友協助找尋!英國鬥牛犬虎斑色背上有一搓白毛因為狗狗年紀大了,希望老年不要在外流浪!!如果有看到請與我聯繫!!感激不盡!!曾小姐 0913590617', TO_DATE('2014-04-24','YYYY-MM-DD'), '0', '7007');
+ INSERT INTO LOST VALUES (lost_seq.NEXTVAL, '【高雄市】高雄鳳山五甲 4/15 拾獲玄鳳鸚鵡', null, '品種 玄鳳鸚鵡(公) 成鳥體型 小名:鳥蛋 走失地點鳳山五甲南成國小林森路附近 聯絡人:葉小姐 0980825194', TO_DATE('2014-04-24','YYYY-MM-DD'), '1', '7008');
+ INSERT INTO LOST VALUES (lost_seq.NEXTVAL, '【台北縣】在八里拾獲三公斤大黑母兔', null, '拾獲地點:台北 八里的左岸步道草地上 特徵:全身黑毛 植入晶片(號碼900138000409633) 無寵物配件 聯絡人:陳同學 0977192216', TO_DATE('2014-04-24','YYYY-MM-DD'), '1', '7009');
+ INSERT INTO LOST VALUES (lost_seq.NEXTVAL, '【台南市】幫我找找她，有看到也好', null, '暱稱: 妞妞~ 品種:米克斯 性別:母 晶片號碼:965000000330430 特徵: 頭頂中分、有雙大眼、臉窄小、身上綁有紅色迷彩胸背帶 背上有兩塊對稱的圖形(剛好一左一右) 走失地點: 台南市北區長勝北街228號 聯絡電話:0912116997 張小姐', TO_DATE('2014-04-25','YYYY-MM-DD'), '0', '7009');
+ 
+ 
+ 
+ CREATE TABLE FUNCTION_item(
+ funcNo              VARCHAR2(10) NOT NULL,
+ funcName            VARCHAR2(30) NOT NULL,
+ CONSTRAINT FUNCTION_item_PRIMARY_KEY PRIMARY KEY(funcNo));
+ 
+ CREATE SEQUENCE func_seq
+ INCREMENT BY 1
+ START WITH 4001
+ NOMAXVALUE
+ NOCYCLE
+ NOCACHE;
+ 
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '活動資訊管理-查詢');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '活動資訊管理');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '掛號管理-查詢');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '掛號管理');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '病歷管理');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '醫師班表管理-查詢');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '醫師班表管理');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '商品管理-查詢');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '商品管理');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '訂單管理-查詢');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '訂單管理');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '商品帳目管理-查詢');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '商品帳目管理');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '最新消息管理-查詢');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '最新消息管理');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '員工管理-查詢');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '員工管理');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '會員管理-查詢');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '會員管理');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '失蹤協尋文章管理-查詢');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '失蹤協尋文章管理');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '線上諮詢');
+ INSERT INTO FUNCTION_item VALUES (func_seq.NEXTVAL, '權限管理');
+ 
+ 
+ CREATE TABLE EMPLOYEE (
+ empNo                 VARCHAR2(10) NOT NULL,
+ empName               VARCHAR2(10),
+ empBirth              DATE,
+ empTel                VARCHAR2(15),
+ empSex                VARCHAR2(3),
+ empPos                VARCHAR2(20),
+ empSalary             NUMBER,
+ empArrdate            DATE,
+ empOff                DATE,
+ empId                 VARCHAR2(10),
+ empAdd                VARCHAR2(50),
+ empPic                BLOB,
+ CONSTRAINT EMPLOYEE_PRIMARY_KEY PRIMARY KEY(EmpNo));
+ 
+ CREATE SEQUENCE emp_seq
+ INCREMENT BY 1
+ START WITH 1001
+ NOMAXVALUE
+ NOCYCLE
+ NOCACHE; 
+  
+ INSERT INTO EMPLOYEE VALUES (emp_seq.nextval,'KING',TO_DATE('1987-11-17','YYYY-MM-DD'),0932322331,'M','醫療人員',3200,TO_DATE('2002-01-01','YYYY-MM-DD'),TO_DATE('2003-01-17','YYYY-MM-DD'),'A169526255','桃園縣中壢市五權里2鄰中大路300號',null);
+ INSERT INTO EMPLOYEE VALUES (emp_seq.nextval,'BLAKE',TO_DATE('1953-05-01','YYYY-MM-DD'),0926016120,'F','倉庫管理人員',2000,TO_DATE('2002-11-17','YYYY-MM-DD'),TO_DATE('2010-03-01','YYYY-MM-DD'),'I287233177','中壢市中大路300號',null);
+ INSERT INTO EMPLOYEE VALUES (emp_seq.nextval,'CLARK',TO_DATE('1951-01-09','YYYY-MM-DD'),0945725474,'M','醫療人員',1000,TO_DATE('2002-03-01','YYYY-MM-DD'),TO_DATE('2002-06-10','YYYY-MM-DD'),'I119183060','桃園縣中壢市五權里2鄰中大路300號',null);
+ INSERT INTO EMPLOYEE VALUES (emp_seq.nextval,'JONES',TO_DATE('1982-04-02','YYYY-MM-DD'),0912121201,'F','倉庫管理人員',9000,TO_DATE('2003-07-06','YYYY-MM-DD'),TO_DATE('2009-11-17','YYYY-MM-DD'),'E286125454','中壢市中大路300號',null);
+ INSERT INTO EMPLOYEE VALUES (emp_seq.nextval,'MARTIN',TO_DATE('1981-09-28','YYYY-MM-DD'),0912541624,'F','經理',6200,TO_DATE('2002-12-01','YYYY-MM-DD'),TO_DATE('2008-12-17','YYYY-MM-DD'),'H226438737','桃園縣中壢市五權里2鄰中大路300號',null);
+ INSERT INTO EMPLOYEE VALUES (emp_seq.nextval,'ALLEN',TO_DATE('2001-02-02','YYYY-MM-DD'),0962643102,'M','活動管理人員',1000,TO_DATE('2002-04-16','YYYY-MM-DD'),TO_DATE('2012-11-17','YYYY-MM-DD'),'A189667319','中壢市中大路300號',null);
+ INSERT INTO EMPLOYEE VALUES (emp_seq.nextval,'TURNER',TO_DATE('1931-09-28','YYYY-MM-DD'),0912454251,'F','醫療人員',2300,TO_DATE('2001-09-15','YYYY-MM-DD'),TO_DATE('2012-05-17','YYYY-MM-DD'),'H242633705','桃園縣中壢市五權里2鄰中大路300號',null);
+ INSERT INTO EMPLOYEE VALUES (emp_seq.nextval,'JAMES',TO_DATE('1981-12-03','YYYY-MM-DD'),0914324343,'F','醫療人員',3000,TO_DATE('2001-01-07','YYYY-MM-DD'),TO_DATE('2002-11-17','YYYY-MM-DD'),'U287571935','中壢市中大路300號',null);
+ INSERT INTO EMPLOYEE VALUES (emp_seq.nextval,'WARD',TO_DATE('1921-02-22','YYYY-MM-DD'),0912152451,'M','職員',3500,TO_DATE('2010-06-01','YYYY-MM-DD'),TO_DATE('2011-04-15','YYYY-MM-DD'),'T103567714','桃園縣中壢市五權里2鄰中大路300號',null);
+ INSERT INTO EMPLOYEE VALUES (emp_seq.nextval,'FORD',TO_DATE('1941-12-03','YYYY-MM-DD'),0945723142,'F','職員',5800,TO_DATE('2012-10-30','YYYY-MM-DD'),TO_DATE('2013-11-12','YYYY-MM-DD'),'J209611662','中壢市中大路300號',null);
+  
+ CREATE TABLE POWER(
+ empNo             VARCHAR2(10) NOT NULL,
+ funcNo            VARCHAR2(10) NOT NULL,
+ CONSTRAINT POWER_PRIMARY_KEY PRIMARY KEY(empNo, funcNo),
+ CONSTRAINT POWER_emp_No_FK FOREIGN KEY(empNo) REFERENCES EMPLOYEE(empNo),
+ CONSTRAINT POWER_func_No_FK FOREIGN KEY(funcNo) REFERENCES FUNCTION_item(funcNo));
+ 
+ 
+ INSERT INTO POWER VALUES ('1001', '4002');
+ INSERT INTO POWER VALUES ('1001', '4003');
+ INSERT INTO POWER VALUES ('1002', '4002');
+ INSERT INTO POWER VALUES ('1002', '4003');
+ INSERT INTO POWER VALUES ('1002', '4004');
+ INSERT INTO POWER VALUES ('1003', '4002');
+ INSERT INTO POWER VALUES ('1003', '4005');
+ INSERT INTO POWER VALUES ('1004', '4006');
+ INSERT INTO POWER VALUES ('1005', '4007');
+ INSERT INTO POWER VALUES ('1006', '4008');
+ 
+ 
+ 
+ CREATE TABLE NEWS(
+ newsNo             VARCHAR2(10) NOT NULL,
+ newsTitle          VARCHAR2(100) NOT NULL,
+ newsType           VARCHAR2(10) NOT NULL,
+ newsContent        VARCHAR2(500) NOT NULL,
+ newsPic            BLOB,
+ newsPotime         DATE,
+ empNo              VARCHAR2(10) NOT NULL,
+ CONSTRAINT NEWS_PRIMARY_KEY PRIMARY KEY(newsNo),
+ CONSTRAINT NEWS_emp_No_FK FOREIGN KEY (empNo) REFERENCES EMPLOYEE (empNo));
+ 
+ CREATE SEQUENCE news_seq
+ INCREMENT BY 1
+ START WITH 6001
+ NOMAXVALUE
+ NOCYCLE
+ NOCACHE;
+ 
+ INSERT INTO NEWS VALUES (news_seq.NEXTVAL, '寵物嘉年華', '活動類', '2014年第1屆 桃園寵物嘉年華會,活動時間：103年5月20日(二)~25日(日),活動地點：桃園縣中壢市中大路300-1號', null, TO_DATE('2014-04-20','YYYY-MM-DD'), '1003');
+ INSERT INTO NEWS VALUES (news_seq.NEXTVAL, '行為訓練課程', '活動類', '課程內容：1.大小便訓練 2.為什麼又(成)犬愛亂咬 3.為什麼又(成)犬愛亂叫 4.問與答', null, TO_DATE('2014-04-22','YYYY-MM-DD'), '1003');
+ INSERT INTO NEWS VALUES (news_seq.NEXTVAL, '一起防範狂犬病，寵物請勿帶入山林', '公告類', '愛護您的寵物，請勿帶入山林，一起防範狂犬病', null, TO_DATE('2014-04-21','YYYY-MM-DD'), '1004');
+ INSERT INTO NEWS VALUES (news_seq.NEXTVAL, '荷包復活戰!!!', '商品類', '全館眾多商品下殺特價中!搶便宜趁現在!!活動期限：2014/5/1~5/31', null, TO_DATE('2014-04-22','YYYY-MM-DD'), '1005');
+ INSERT INTO NEWS VALUES (news_seq.NEXTVAL, '寵物用品展', '公告類', '2014中央大學寵物用品展開跑囉!本次展覽光邀各寵物用品廠商展出，內容史上最專業、活動史上最豐富!絕對不容錯過~ 活動日期：2014/4/29~5/4', null, TO_DATE('2014-04-20','YYYY-MM-DD'), '1004');
+ INSERT INTO NEWS VALUES (news_seq.NEXTVAL, '寵物齊出走', '活動類', '一年一度的寵物齊出走活動又來囉!!歡迎各位大朋友小朋友一起來認識新朋友，出走時間：2014/5/25', null, TO_DATE('2014-04-30','YYYY-MM-DD'), '1003');
+ INSERT INTO NEWS VALUES (news_seq.NEXTVAL, '時尚秀', '活動類', '活動名稱：寵物時尚秀 活動時間：6/1 報名日期：即日起至5/25 活動地點：中央大學體育館 報名資格：不限犬型', null, TO_DATE('2014-04-22','YYYY-MM-DD'), '1008');
+ INSERT INTO NEWS VALUES (news_seq.NEXTVAL, '週年慶', '商品類', '慶祝開館一週年，凡至本館購買任何商品75折，活動期限：2014/4/25~5/4', null, TO_DATE('2014-04-20','YYYY-MM-DD'), '1005');
+ 
+ 
+  
+ commit;
+ --------------------------------------------------------------------------------------------------------

@@ -1,0 +1,18 @@
+CREATE SEQUENCE news_seq
+INCREMENT BY 1
+START WITH 6001
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+查詢目前表格中有使用中sequence
+ SELECT * FROM USER_SEQUENCES;
+
+刪除sequence:
+ DROP SEQUENCE news_seq;
+ 
+●取用一組新的值:
+ SELECT news_seq.NEXTVAL FROM DUAL;
+
+得知目前使用到幾號 :
+ SELECT news_seq.CURRVAL FROM DUAL;

@@ -1,0 +1,107 @@
+body
+{
+margin: 0px;
+padding: 0px;
+font-family: Arial;
+}
+/* Don't touch */
+ul#jmenu
+{
+margin: 0px;
+padding: 0px;
+list-style: none;
+}
+ul#jmenu li
+{
+float: left;
+margin: 0px;
+padding: 0px;
+//width: 1px; /* ie */
+//vertical-align: bottom;  /* ie */
+}
+ul#jmenu li a
+{
+display: block;
+white-space: nowrap;
+}
+
+ul#jmenu li ul
+{
+display: none;
+position: absolute;
+margin-top: 5px;
+margin-left: 36px;
+padding: 0px;
+list-style: none;
+zoom: 1;  /* ie */
+z-index: 99;
+}
+ul#jmenu li ul li
+{
+float: none;
+
+}
+
+/* Styling starts here */
+ul#jmenu
+{
+width: 100%;
+
+background: #FFFFFF url('./images/top_icon_bg.jpg') repeat-x left top;
+}
+ul#jmenu li
+{
+/*background: url('../images/separator.gif') no-repeat right center;*/
+padding: 0px 0px;
+
+}
+ul#jmenu li a:link, ul#jmenu li a:visited
+{
+padding: 0px 0px;
+height: 40px;
+line-height: 40px;
+color: #FFFFFF;
+font-size: 16px;
+text-decoration: none;
+background: none;
+}
+ul#jmenu li a:hover
+{
+color: #ffffff;
+/*background: #3f4a58 url('../images/menu-bg.gif') repeat-x left bottom;*/
+}
+ul#jmenu ul
+{
+background-color:#ffffff;
+border: 1px solid #e7e7e7;
+text-align: left;
+/*background: url('../images/tw/top_icon_bg02.jpg') repeat-x left bottom;*/
+background-image: url(./images/top_icon_bg02.jpg);
+background-repeat: repeat-x;
+
+}
+ul#jmenu li ul li
+{
+min-width: 146px;
+//width: 146px;  /* ie */
+font-size: 16px;
+padding: 0px;
+margin-left: 10px;
+margin-right: 10px;
+color: #000000;
+
+}
+ul#jmenu li ul li a:link, ul#jmenu li ul li a:visited
+{
+min-width: 60px;
+//width: 60px;  /* ie */
+font-size: 16px;
+height: 30px;
+line-height: 30px;
+color: #333333;
+}
+ul#jmenu li ul li a:hover
+{
+color: #999999;
+/*background: #e7e7e7 url('../images/menu-bg.gif') repeat-x left top;*/
+}

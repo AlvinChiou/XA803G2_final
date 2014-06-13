@@ -1,0 +1,18 @@
+CREATE SEQUENCE func_seq
+INCREMENT BY 1
+START WITH 4001
+NOMAXVALUE
+NOCYCLE
+NOCACHE;
+
+查詢目前表格中有使用中sequence
+ SELECT * FROM USER_SEQUENCES;
+
+刪除sequence:
+ DROP SEQUENCE func_seq;
+ 
+●取用一組新的值:
+ SELECT func_seq.NEXTVAL FROM DUAL;
+
+得知目前使用到幾號 :
+ SELECT func_seq.CURRVAL FROM DUAL;
